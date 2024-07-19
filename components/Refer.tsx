@@ -10,7 +10,7 @@ import Image from 'next/image';
 import heroImg from '@/public/2784130.jpg'
 
 const schema = z.object({
-  referrerName: z.string().nonempty("Referrer's name is required"),
+  referrerName: z.string().nonempty(`Referrer's name is required"`),
   referrerEmail: z.string().email("Invalid email address"),
   refereeName: z.string().nonempty("Referee's name is required"),
   refereeEmail: z.string().email("Invalid email address"),
@@ -31,7 +31,7 @@ const Refer = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/referral', data);
+      const response = await axios.post('https://accredian-backend-task-9tjd.onrender.com/api/referral', data);
       console.log('Response:', response.data);
       setSuccess(true);
       // Handle success, e.g., show a success message, close the modal, etc.
@@ -75,12 +75,12 @@ const Refer = () => {
               {errors.referrerEmail && <p className='text-rose-500 font-extralight'>*{errors.referrerEmail.message}</p>}
             </div>
             <div className='flex flex-col'>
-              <label className='font-normal'>Referee's Name</label>
+              <label className='font-normal'>Referee&apos;s Name</label>
               <input {...register('refereeName')} className='border p-2 rounded-lg' placeholder='Enter Referee Name' />
               {errors.refereeName && <p className='text-rose-500 font-extralight'>*{errors.refereeName.message}</p>}
             </div>
             <div className='flex flex-col'>
-              <label className='font-normal'>Referee's Email</label>
+              <label className='font-normal'>Referee&apos;s Email</label>
               <input {...register('refereeEmail')} className='border p-2 rounded-lg' placeholder='Enter Referee Email' />
               {errors.refereeEmail && <p className='text-rose-500 font-extralight'>*{errors.refereeEmail.message}</p>}
             </div>
