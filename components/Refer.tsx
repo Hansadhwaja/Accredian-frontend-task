@@ -22,7 +22,6 @@ type FormData = z.infer<typeof schema>;
 const Refer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -33,7 +32,7 @@ const Refer = () => {
     try {
       const response = await axios.post('https://accredian-backend-task-9tjd.onrender.com/api/referral', data);
       console.log('Response:', response.data);
-      setSuccess(true);
+      alert('Successfully refered!')
       // Handle success, e.g., show a success message, close the modal, etc.
       setIsModalOpen(false);
     } catch (error) {
@@ -52,9 +51,7 @@ const Refer = () => {
             <h1 className=' text-3xl sm:text-6xl font-bold text-slate-700'>Refer & Earn </h1>
             <p className='mt-3'>Refer courses to your friends and <br /> earn direct cashback upto <span className='text-sky-500 font-semibold'>1200 </span>rupees!</p>
           </div>
-          {!success && (
-            <Button className='bg-sky-400 hover:bg-sky-500' onClick={() => setIsModalOpen(true)}>Refer Now</Button>
-          )}
+          <Button className='bg-sky-400 hover:bg-sky-500' onClick={() => setIsModalOpen(true)}>Refer Now</Button>
         </div>
         <div className='w-full sm:w-3/5 rotate-2 -mr-10'>
           <Image src={heroImg} alt='HeroImg' className='object-cover' />
@@ -89,7 +86,7 @@ const Refer = () => {
               <input {...register('course')} className='border p-2 rounded-lg' placeholder='Enter course Name' />
               {errors.course && <p className='text-rose-500 font-extralight'>*{errors.course.message}</p>}
             </div>
-            <Button className='bg-sky-400 hover:bg-sky-500 mt-3' type="submit">Submit</Button>
+            <Button className='bg-sky-400 hover:bg-sky-500 mt-3' type="submit">{isSubmitting ? 'Submitting' : 'Submit'}</Button>
           </form>
         </DialogContent>
       </Dialog>
